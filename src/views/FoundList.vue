@@ -91,7 +91,7 @@
         </el-row>
       </div>
     </div>
-    <DialogAdd :dialog="dialog" :formData="formData" @update="getProfile"></DialogAdd>
+    <DialogAdd :dialog="dialog" :formData="formData" @update="getProfile" @func="getMsgFormSon"></DialogAdd>
     <!-- </el-container> -->
   </div>
 </template>
@@ -120,7 +120,8 @@ export default {
         expend: "",
         cash: "",
         remark: "",
-        id: ""
+        id: "",
+        src:""
       },
       paginations: {
         page_index: 1,
@@ -180,7 +181,8 @@ export default {
         expend: row.expend,
         cash: row.cash,
         remark: row.remark,
-        id: row.id
+        id: row.id,
+        src:row.src
       };
     },
     handleDelete(index, row) {
@@ -216,7 +218,8 @@ export default {
         expend: "",
         cash: "",
         remark: "",
-        id: ""
+        id: "",
+        src:""
       };
     },
     handleSizeChange(page_size) {
@@ -282,6 +285,11 @@ export default {
         })
       }
        this.setPageinations();
+    },
+    getMsgFormSon(data){
+      console.log(this.formData.src);
+        this.formData.src='http://localhost:8000/upload/management/'+data;
+        console.log(this.formData.src);
     }
   },
   components: {

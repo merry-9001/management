@@ -1,8 +1,7 @@
 <template>
     <div class="home">
         <div class="container">
-            <h1 class="title">QQ在线</h1>
-            <p class="lead">用心学习课程,用心做服务!</p>
+            <h1 class="title">仅仅只是敲键盘</h1>
         </div>
     </div>
 </template>

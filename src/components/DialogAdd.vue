@@ -43,6 +43,12 @@
           <el-form-item label="备注:">
             <el-input type="textarea" v-model="formData.remark"></el-input>
           </el-form-item>
+
+          <el-form-item label="图片:">
+            <input type="file" name="file" value="上传图片" @change="handleToUpload" />
+            <img :src="formData.src" class="head" />
+          </el-form-item>
+
           <el-form-item class="text_right">
             <el-button @click="dialog.show = false">取 消</el-button>
             <el-button type="primary" @click="onSubmit('form')">提 交</el-button>
@@ -69,7 +75,8 @@ export default {
           { required: true, message: "支出不能为空！", trigger: "blur" }
         ],
         cash: [{ required: true, message: "账户不能为空！", trigger: "blur" }]
-      }
+      },
+      address: "",
     };
   },
   props: {
@@ -80,7 +87,7 @@ export default {
     onSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          const f=this.dialog.option
+          const f = this.dialog.option;
           var params = new URLSearchParams();
           params.append("type", this.formData.type);
           params.append("describes", this.formData.describes);
@@ -89,9 +96,9 @@ export default {
           params.append("cash", this.formData.cash);
           params.append("remark", this.formData.remark);
           params.append("id", this.formData.id);
+          params.append("src", this.formData.src);
           // console.log(this.formData.income);
-          if(f==='add')
-          {
+          if (f === "add") {
             this.$axios
               .post("/management_api/productAdd.php", params)
               .then(res => {
@@ -111,12 +118,11 @@ export default {
                   });
                 }
               });
-            }
-            else{
+          } else {
             this.$axios
               .post("/management_api/productEdit.php", params)
               .then(res => {
-                // console.log(res);
+                console.log(res);
                 var state = res.data.stauts;
                 if (state === "0") {
                   this.$message({
@@ -131,17 +137,45 @@ export default {
                     type: "warning"
                   });
                 }
-              });              
-            }
-        } 
-        else {
+              });
+          }
+        } else {
           console.log(this.formData);
           this.$message.error("请填写完整数据");
         }
       });
-    }
+    },
+    handleToUpload(ev) {
+      var file = ev.target.files[0];
+      var param = new FormData();
+      param.append("file", file, file.name);
+      var config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      this.$axios.post("/management_api/picUpload.php", param, config).then(res => {
+        // console.log(res);
+         var stauts = res.data.stauts;
+        // console.log(msg);
+        // var that = this;
+         if (stauts === "ok") {
+           this.msg=res.data.address;
+           this.$emit('func',this.msg)
+            // console.log(this.msg);
+         }
+      });
+    },
+
+             
+
+
   }
 };
 </script>
 <style scoped>
+.head {
+  width: 150px;
+  height: 150px;
+}
 </style>
