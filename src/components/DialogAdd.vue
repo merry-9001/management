@@ -155,7 +155,7 @@ export default {
         }
       };
       this.$axios.post("/management_api/picUpload.php", param, config).then(res => {
-        // console.log(res);
+        console.log(res);
          var stauts = res.data.stauts;
         // console.log(msg);
         // var that = this;
