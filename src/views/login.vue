@@ -88,7 +88,7 @@ export default {
           this.$store.commit("user/USER_NAME", {
             name: res.data.data.username,
             isAdmin: res.data.data.identity,
-            userHead:res.data.data.src
+            // userHead:res.data.data.src
           });
 
               this.$router.push("/index");

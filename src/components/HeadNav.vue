@@ -9,6 +9,7 @@
         <div class="userinfo">
           <i style="font-size: 30px;" class="far fa-user-circle">
             <img :src="$store.state.user.userHead" class="avatar" alt="">
+            
           </i>
           <div class="welcome">
           

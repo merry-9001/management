@@ -50,7 +50,8 @@ const router = new Router({
             path: '*',
             name: '/404',
             component: Notfound
-        }, {
+        },
+        {
             path: '/',
             redirect: '/index',
         },

@@ -288,7 +288,7 @@ export default {
     },
     getMsgFormSon(data){
       console.log(this.formData.src);
-        this.formData.src='http://120.27.1.3/management_api/upload/'+data;
+        this.formData.src='http://47.96.175.28/management_api/upload/'+data;
         console.log(this.formData.src);
     }
   },
